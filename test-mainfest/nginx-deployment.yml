@@ -20,3 +20,10 @@ spec:
           image: nginx:1.24
           ports:
             - containerPort: 80
+      resources:
+            requests:
+              cpu: "100m"       # 0.1 CPU cores
+              memory: "128Mi"   # 128 MB RAM
+            limits:
+              cpu: "250m"       # 0.25 CPU cores
+              memory: "256Mi"   # 256 MB RAM
