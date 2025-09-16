@@ -5,6 +5,8 @@ metadata:
   name: nginx-deployment
   labels:
     app: nginx
+    notifications.argoproj.io/subscribe.on-sync-succeeded.telegram: "true"
+    notifications.argoproj.io/subscribe.on-sync-failed.telegram: "true"
 spec:
   replicas: 2
   selector:
