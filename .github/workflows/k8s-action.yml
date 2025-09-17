@@ -45,6 +45,10 @@ jobs:
         sed -i 's|image: .*|image: ghcr.io/'${{ github.repository }}'/my-app:'${{ env.COMMIT_SHA }}'|g' test-mainfest/nginx-deployment.yml
         cat test-mainfest/nginx-deployment.yml
 
+    - name: clean registry connection
+      run: |
+        docker logout ghcr.io
+
     - name: Deploy to Kubernetes
       run: |
         kubectl apply -f test-mainfest/
