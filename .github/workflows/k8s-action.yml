@@ -1,1 +1,33 @@
+name: Deploy to Kubernetes
+on:
+  push:
+    branches: [main]  # or 'master' or any branch you prefer
 
+jobs:
+  deploy:
+    runs-on: k8s
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+#    - name: Build and Push Docker
+#      working-directory: .
+#      run: |
+#          docker build -t registry.digitalocean.com/myregistry-cloud/myapp:${{ env.COMMIT_SHA }} .
+#          docker login registry.digitalocean.com/myregistry-cloud -u github_access_token -p ${{ secrets.REGISTRY_TOKEN }}
+#          docker push registry.digitalocean.com/myregistry-cloud/myapp:${{ env.COMMIT_SHA }}
+
+
+    - name: Set up kubectl
+      uses: azure/setup-kubectl@v3
+      with:
+        version: 'latest'
+
+    - name: Set up kubeconfig
+      run: |
+        echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 -d > $HOME/.kube/config
+
+    - name: Deploy to Kubernetes
+      run: |
+        kubectl apply -f test-mainfest/
