@@ -54,7 +54,7 @@ jobs:
         kubectl apply -f test-mainfest/
         kubectl get pods -n default
         kubectl get svc -n default
-#        kubectl delete -f test-mainfest/
+        kubectl delete -f test-mainfest/
     
     - name: Clean k8s cluster configuiration
       run: |
